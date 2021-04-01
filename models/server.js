@@ -14,7 +14,8 @@ class Server {
         await db.dbConnection();
     }
     routes() {
-        this.app.use('/api/users', require('../routes/user.route'))
+        this.app.use('/api/users', require('../routes/user.route'));
+        this.app.use('/api/auth/login', require('../routes/auth.route'));
     }
     middlewares() {
         this.app.use(express.static('public'));

@@ -6,7 +6,8 @@ const {
     usersGet,
     usersPost,
     usersPut,
-    usersDelete
+    usersDelete,
+    usersGetById
 } = require('../controllers/users.controllers');
 
 const route = Router();
@@ -17,6 +18,11 @@ route.get('/',[
 ], (req, res) => {
     usersGet(req, res);
 });
+route.get('/:id',[
+    check('id').isMongoId(),
+    check('id').custom(existsUser),
+    validateFields
+], usersGetById);
 route.post('/', [
     check('email','Email is not valid').isEmail(),
     check('name','Name is required').notEmpty(),

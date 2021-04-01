@@ -1,7 +1,6 @@
 const { response, request }= require('express');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-
 const usersGet = async (req = request, res = response) => {
     const { page = 0, size = 5 } = req.query;
     const active = {state: true};
@@ -12,6 +11,11 @@ const usersGet = async (req = request, res = response) => {
         .limit(Number(size))
     ]);
     res.json({data: users, page, size, total});
+}
+const usersGetById = async (req = request, res = response) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    res.json({data: user});
 }
 const usersPost = async (req, res = response) => {
     const { name, email, password, role } = req.body;
@@ -42,5 +46,6 @@ module.exports = {
     usersGet,
     usersPost,
     usersPut,
-    usersDelete
+    usersDelete,
+    usersGetById
 };
