@@ -9,6 +9,8 @@ const {
     usersDelete,
     usersGetById
 } = require('../controllers/users.controllers');
+const { validateToken } = require('../middlewares/validate-token');
+const { hasRole } = require('../middlewares/validate-role');
 
 const route = Router();
 route.get('/',[
@@ -24,6 +26,7 @@ route.get('/:id',[
     validateFields
 ], usersGetById);
 route.post('/', [
+    validateToken,
     check('email','Email is not valid').isEmail(),
     check('name','Name is required').notEmpty(),
     check('password', 'Password is not valid').isLength({ min: 6 }),
@@ -34,6 +37,8 @@ route.post('/', [
 usersPost);
 
 route.put('/:id',[
+    validateToken,
+    (res, req, next) => hasRole(res,req,next,['ADMIN']),
     check('id').isMongoId(),
     check('id').custom(existsUser),
     validateFields
@@ -41,6 +46,8 @@ route.put('/:id',[
     usersPut(req, res);
 });
 route.delete('/:id', [
+    validateToken,
+    (res, req, next) => hasRole(res,req,next,['ADMIN']),
     check('id', 'Id invalid').isMongoId(),
     check('id').custom(existsUser),
     validateFields
