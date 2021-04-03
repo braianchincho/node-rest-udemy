@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Api</title>
+    <meta name="google-signin-client_id" content="196431410920-skcdlqu6v6rp2dvuot9ijf4v8joid8ho.apps.googleusercontent.com">
+    <title>Google Sign In</title>
+    <style>
+        h1 { text-align: center }
+    </style>
 </head>
 <body>
-    <h1>Api rest</h1>
+    <h1>Google Sign In</h1>
+    <hr>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="#" onclick="signOut();">Sign out</a>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="./script/google-signIn.js"></script>
+
 </body>
 </html>
