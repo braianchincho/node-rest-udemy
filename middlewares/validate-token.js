@@ -12,7 +12,7 @@ const validateToken = async (req = request, res = response, next ) => {
       if (!user || !user.state) {
         return res.status(401).json({message: 'Invalid token - disabled user'})
       }
-      res.userLogged = user;
+      req.userLogged = user;
       next();
   } catch (error) {
     return res.status(401).json({ msg: 'Invalid token'});

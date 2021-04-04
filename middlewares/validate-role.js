@@ -1,8 +1,7 @@
 const { request, response } = require('express');
-const User = require('../models/user');
 
 const hasRole = async (req = request, res = response, next, roles = []) => {
-    const { role } = res.userLogged;
+    const { role } = req.userLogged;
     if (roles.includes(role)) {
         next();
         return;

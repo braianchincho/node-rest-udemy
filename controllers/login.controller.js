@@ -3,7 +3,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const { generateJWT } = require('../helpers/generate-jwt');
 const { verifyGoogle } = require("../helpers/google-verify");
-const user = require("../models/user");
+
 const login = async (req, res = response) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email, state: true });
