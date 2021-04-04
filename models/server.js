@@ -14,9 +14,10 @@ class Server {
         await db.dbConnection();
     }
     routes() {
-        this.app.use('/api/users', require('../routes/user.route'));
         this.app.use('/api/auth', require('../routes/auth.route'));
         this.app.use('/api/categories', require('../routes/categories.route'));
+        this.app.use('/api/products', require('../routes/product.route'));
+        this.app.use('/api/users', require('../routes/user.route'));
     }
     middlewares() {
         this.app.use(express.static('public'));
