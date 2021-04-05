@@ -1,10 +1,29 @@
-const { request, response, json } = require("express");
+const { request, response } = require("express");
 const { Product } = require('../models');
-
+const createFindQuery = (name, description) => {
+    const filter = [];
+    let productFind;
+    if (name) {
+        filter.push({ name: new RegExp(name.toUpperCase(), 'i') });
+    }
+    if (description) {
+      filter.push({ description: new RegExp(description, 'i') });   
+    }
+    if (filter.length > 0 ) {
+        productFind =  Product.find({
+            $or: filter,
+            $and: [{ state: true}] 
+        });
+    } else {
+        productFind = Product.find({ state: true});
+    }
+    return productFind;
+};
 const getProducts = async (req = request, res = response) => {
-    const { page = 0, size = 5 } = req.query;
+    const { page = 0, size = 5, name = '', description = ''  } = req.query;
+    const productFind = createFindQuery(name, description);
     const [ products, total ] = await Promise.all([
-        Product.find({ state: true })
+        productFind
         .skip(page*size)
         .limit(Number(size))
         .populate('user', 'name')
