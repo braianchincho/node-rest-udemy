@@ -23,7 +23,7 @@ const createQuery = (name, email, role, state = true) => {
 const usersGet = async (req = request, res = response) => {
     const { page = 0, size = 5, name = '', email = '', role = '' } = req.query;
     const [total, users ] = await Promise.all([
-        User.count(),
+        User.countDocuments(),
         createQuery(name,email,role)
         .skip(Number(page)*Number(size))
         .limit(Number(size))
