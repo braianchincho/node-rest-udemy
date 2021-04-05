@@ -19,9 +19,18 @@ const putCategory = async (req = request, res = response) => {
     res.json({ data: category });
 };
 const getCategories = async (req = request, res = response) => {
-    const { page = 0, size = 5 } = req.query;
+    const { page = 0, size = 5, name = '' } = req.query;
+    let findquery;
+    if (name) {
+        findquery = Category.find({
+            $or: [{ name: new RegExp(name,'i')}],
+            $and: [{state:true}]
+        })
+    } else {
+        findquery = Category.find({state: true});
+    }
     const [ categories, total ] = await Promise.all([
-        Category.find({state: true})
+        findquery
         .skip(page*size)
         .limit(Number(size))
         .populate('user', 'name'),

@@ -1,12 +1,30 @@
 const { response, request }= require('express');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+const createQuery = (name, email, role, state = true) => {
+    const filter = [];
+    let query;
+    if (name) {
+        filter.push({ name: new RegExp(name, 'i') })
+    }
+    if (email) {
+        filter.push({ email: new RegExp(email, 'i') });
+    }
+    if (role) {
+        filter.push({ role: new RegExp(role, 'i') });
+    }
+    if (filter.length > 0 ) {
+        query = User.find({ $or: filter, $and: [{state}]})
+    } else {
+        query = User.find({state});
+    }
+    return query;
+};
 const usersGet = async (req = request, res = response) => {
-    const { page = 0, size = 5 } = req.query;
-    const active = {state: true};
+    const { page = 0, size = 5, name = '', email = '', role = '' } = req.query;
     const [total, users ] = await Promise.all([
         User.count(),
-        User.find(active)
+        createQuery(name,email,role)
         .skip(Number(page)*Number(size))
         .limit(Number(size))
     ]);
