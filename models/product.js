@@ -20,7 +20,8 @@ const ProductSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Category'
     },
-    available: { type: Boolean, default: true }
+    available: { type: Boolean, default: true },
+    img: { type: String}
     
 });
 ProductSchema.methods.toJSON = function() {
