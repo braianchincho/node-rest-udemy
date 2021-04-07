@@ -3,8 +3,8 @@ const { User, Product } = require('../models');
 const UploadFileOnServer = require('../controllers/upload-server.controller')
 const extensionsImgs = ['png', 'jpg', 'jpge', 'gif'];
 
-// const uploader = new UploadFileCloudinary();
-const uploader = new UploadFileOnServer();
+const uploader = new UploadFileCloudinary();
+// const uploader = new UploadFileOnServer();
 
 const loadGetFile = async (req, res) => {
     const { fileName } = req.params;
@@ -46,7 +46,7 @@ const uploadImgProduct = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Error saving file'})
     }
-};
+}; 
 
 module.exports = {
     loadGetFile,
