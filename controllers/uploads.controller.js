@@ -1,10 +1,10 @@
 const { User, Product } = require('../models');
-// const UploadFileCloudinary = require('../controllers/upload-coudinary.controller');
-const UploadFileOnServer = require('../controllers/upload-server.controller')
+const UploadFileCloudinary = require('../controllers/upload-coudinary.controller');
+//const UploadFileOnServer = require('../controllers/upload-server.controller')
 const extensionsImgs = ['png', 'jpg', 'jpge', 'gif'];
 
 const uploader = new UploadFileCloudinary();
-// const uploader = new UploadFileOnServer();
+//const uploader = new UploadFileOnServer();
 
 const loadGetFile = async (req, res) => {
     const { fileName } = req.params;
