@@ -43,14 +43,25 @@ const googleSignIn = async (req, res = response) => {
         if (!userDB.state) {
             return res.status(401).json({ message: 'User blocked'})
         }
-        const token = await generateJWT(userDB.uid);
+        const token = await generateJWT(userDB._id);
         res.json({ data: { userDB, token }})
     } catch (error) {
         res.status(400).json({ message: 'Sign in Failed'})
     }
    
 };
+const renovateToken = async (req, res) => {
+    const { userLogged } = req;
+    try {
+        const token = await generateJWT(userLogged._id);
+        res.json({data: { token, user: userLogged } });
+    } catch(err) {
+        res.status(500).json({message: 'Error on login', err});
+    }
+
+};
 module.exports = {
     login,
-    googleSignIn
+    googleSignIn,
+    renovateToken
 };
