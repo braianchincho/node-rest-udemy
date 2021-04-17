@@ -44,11 +44,15 @@
             <hr>
         </div>
     </div>
-    <div class="row mt-4">
-        <ul id="ulUsers">
-            
+    <div class="row col-md-6 ml-2 mt-4">
+        <ul class="list-group w-100" id="ulUsers">
+        <!-- carga dinamica -->
         </ul>
+        <div class="form-group">
+            <p class="text-center"><a href="#" onclick="signOut();"  id="signuout">Sign out</a></p>
+        </div>
     </div>
+    <script src="./script/google-signIn.js"></script>
     <script src="./socket.io/socket.io.js"></script>
     <script src="./script/chat.js"></script>
 </body>

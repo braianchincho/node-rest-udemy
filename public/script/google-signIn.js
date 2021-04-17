@@ -11,7 +11,6 @@ function onSignIn(googleUser) {
       return res.json();  
     }).then(({data}) => {
       console.log('google',data);
-      debugger
       if (data && data.token) {
         sessionStorage.setItem('token', data.token);
         window.location = 'chat.html';
