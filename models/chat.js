@@ -18,7 +18,7 @@ class Chat {
     }
 
     lastMessages(n = 10) {
-        return this.messages.splice(0, n);
+        return this.messages.slice(0, n);
     }
 
     sendMessage(id, user, message) {
